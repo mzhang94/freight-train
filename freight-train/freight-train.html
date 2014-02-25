@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Sample Coding Problem</title>
+	<link href="index.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='train-concert'>
+<div id='backdrop'>
+<div id='main'>
+
+
+
+<div class='sub'>
+<h4>Important Notes</h4>
+
+<p>Although this problem is mathematical by nature, we are more interested in gauging your ability to write modular, readable, elegant code than the particular solution that you choose for this problem.<br/>
+<b>Show us that you can write high-quality code!</b></p>
+
+<p>The amount of time you spend is completely up to you. We've left things open ended and there is a lot of room for experimentation.  This problem can be quite deep if you would like it to be.<br/>
+<b>Here is your chance to impress us!</b></p>
+
+<p>Take this problem as an opportunity to give us a practical demonstration of your strengths.  There are no hard requirements on what direction you take your solution in.
+We are just as interested to see a well-written visualization frontend or mobile app as we are in seeing cutting-edge clustering algorithms.<br/>
+<b>Show us what you're good at!</b>
+</p>
+</div>
+
+<p>In our team, we commonly work with large amounts of stochastic data.  Here's a sample of the kind of problem that we actually have to solve:</p>
+
+<h2>Freight Train</h2>
+
+<h3>The scenario</h3>
+
+<p>A shipment of chemicals is being transported by train through a section of railway called <a href="http://en.wikipedia.org/wiki/Dark_territory">dark territory</a>.  When the train is on this section of rail, automatic train detection will not be available and the train loses contact with the outside world.  However, we have just been notified that criminals may be looking to rob the train, and we need to stay one step ahead of them by closely monitoring the train&#39;s whereabouts in real-time.</p>
+
+<p>To track the train&#39;s path in real-time, we have to rely on reports from people who think they&#39;ve heard the sound of a train nearby.  Whenever a person hears the train they report it immediately.  Each report includes the time that the report was made, and the location of the person when they heard the sound of a train. People might be occasionally be wrong about their exact whereabouts. Sometimes people might hear a different train other than the one we are trying to track, but they&#39;ll report it anyway. The only thing we know for sure is that the train moves at a relatively constant speed (although it changes direction to follow the curves of the railway).</p>
+
+<h3>Setup</h3>
+
+<p>We can represent each person&#39;s report as a 2D point in space, with a timestamp.  If all of the points from the report are displayed in chronological order, it might look like:</p>
+
+<video controls>
+<source src="freight-train/reports.mp4" type="video/mp4">
+</video>
+
+<p>The video above is a time lapse video. Each blue dot appears momentarily (and fades away) representing the moment in time that a report was received. As the train moves along the track, the locations of the reports roughly follow it.</p>
+
+
+<h3>Data</h3>
+
+<p><a href="freight-train/reports.txt">This</a> text file contains all the reports where people heard the sound of a train. It is in <a href="http://www.json.org">JSON format</a>. Each report has a <b>timestamp</b> (the number of <i>minutes</i> elapsed since we started tracking the train), and a 2D location (represented by an <b>x</b> and <b>y</b> value in <i>km</i>).</p>
+
+<p><a href="freight-train/reports.txt" download="reports.txt">Download the file here</a>
+
+<a name="challengeDatasets" />
+(Looking for more interesting datasets? Instead try <a href="freight-train/hard-reports-1.txt">this</a> dataset, or <a href="freight-train/hard-reports-2.txt">this</a> dataset, or generate your own!  Think about what cases are hard for <i>your</i> solution, and try them out.)</p>
+
+<h3>Question</h3>
+
+<p>Code: Given these individual reports, write an API that represents where the train is at any particular point in time. What&#39;s the simplest design that you can think of?  What&#39;s the best design you can think of?</p>
+
+<p>Tests: Can you write code that self-verifies that each of the components of your code are working correctly?</p>
+
+<p>Visualizations: Can you visualize the results in a meaningful way?</p>
+
+<p>Analysis: Can you explain how your code works, justify your choices, and convince us that your submission is a good one?</p>
+
+<div class='sub'>
+<h4>Hint</h4>
+<p>The literature (<a href="http://en.wikipedia.org/wiki/Exponential_smoothing">hint</a>, <a href="http://en.wikipedia.org/wiki/Kalman_filter">hint</a>) proposes a number of different solutions.
+If you get stuck, try one of these!<br/>
+Remember, we are just as interested in what your code <i>looks like</i> than what your code <i>does</i>.</p>
+</div>
+
+<h3>Deliverables</h3>
+
+<ol>
+<li><h4>Code</h4></li>
+
+<p>Write a program that, given a dataset (specified above) implements the following three APIs:
+<ol>
+  <li>Query API: Provide the best estimate of the train&#39;s state at any particular moment in time</li>
+  <li>Playback API: Produce the overall path of the train through time</li>
+  <li>Info API: We know the train moves at a constant speed. What is it?</li>
+</ol>
+</p>
+<p>We're not being strict about how you organize your code, but show us that you've at least thought about things like <b>modularity</b> and making your code <b>reusable</b> or <b>extensible</b>.  We're more interested in your <b>code quality</b> than whether you managed to find and implement a state-of-the-art algorithm (though, that's impressive too!)</p>
+
+
+<li><h4>Tests</h4></li>
+<p>Tell us how to run the self-verification tests for each subcomponent of your code.  Tell us how you chose what to test and why you tested it that way.  This doesn&#39;t need to be more than a few sentences.</p>
+
+<p>Some components are harder to test than others.  Some components are more meaningful to test than others.  Is there anything you would add if you had more time?</p>
+
+
+<li><h4>Analysis</h4></li>
+<p>Tell us about the solution you chose and how you decided to implement it.  <b>Focus on what makes your solution/code impressive!</b>
+This doesn&#39;t need to be more than a few sentences.  Of course, if your solution warrants more discussion, don&#39;t hesitate to include that too.</p>
+
+For example, you might talk about:
+<ul>
+  <li>Design decisions you made in order to optimize your code for maintainability/readability<br />Point out any particularly elegant code and/or well-commented sections!
+  <li>Design decisions you made in order to make parts of your code easier to test in isolation<br />Point out any particularly elegant encapsulation!
+  <li>Runtime or memory performance optimizations you considered</li>
+  <li>Where does your solution break down?<br />Are there types of datasets that it handles worse than others?</li>
+</ul>
+
+
+<li><h4>Visualizations</h4></li>
+
+<p>You are <b>not</b> required to send us the <i>code</i> for your visualizations.</p>
+
+<p>However, if you found it helpful to visualize your data while you are working on this problem, definitely include any screenshots, plots, videos, or charts that you generated along the way!
+In the analysis section (above), be sure to reference these and tell us what they&#39;re showing.</p>
+
+<div class='sub'>
+<h4>Hint</h4>
+<p>You probably want to find a good plotting library if you don't already have a favorite.  In javascript, for example, we like using <a href='http://d3js.org/'>D3.js</a>.  In python we like <a href='http://matplotlib.org/index.html'>pyplot</a>.  In C++ we render PNGs in <a href='https://developer.apple.com/opengl/'>Open GL</a>.</p>
+</div>
+
+<li><h4>Extensions</h4></li>
+
+<p>Below are some <b>optional</b> ideas for additional things you can do in your solution.  Remember: play to your strengths!  We don't care what direction you take this problem in, so show us what you can do.  The list below are only suggestions.
+</p>
+
+<ul class='biglist'>
+<li>Implement a visualization API for programmatically generating any visualizations you used while working on this problem.</li>
+
+<li>Make or use a web visualization tool or mobile app to provide interactive analysis about the data.  Can I move a slider to see the best estimated position of the train at particular moments in time?  Be creative!</li>
+
+<li>Can you write this as an <a href='http://en.wikipedia.org/wiki/Online_algorithm'>online algorithm</a>, updating your guess on-the-fly as new guesses are added?  Can you write a good interactive visualizer for this, allowing the user to add points wherever they want to test it?</li>
+
+<li>Consider that <a href='https://www.google.com/#q=Atmospheric+Sound+Absorption'>Atmospheric Sound Absorption</a> depends on the frequency of sound (produced by the train). Consider that the likelihood of a report depends on a person&#39;s <a href='http://en.wikipedia.org/wiki/Threshold_of_hearing'>threshold of hearing</a>. How can we use this information to improve our estimate? Make some simple assumptions.</li>
+
+<li>How can you evaluate how good your solution is?  Implement some measure(s) of goodness and compare your solution(s) to some naive ones on some datasets of your choice.</li>
+</ul>
+
+<div class='sub'>
+<h4>Final Note</h4>
+<p>Let us know if you have any other thoughts on this problem, have trouble understanding it, or have suggestions on how we could make it better.
+Feel free to send your thoughts alongside your solution or in a separate e-mail.  We love feedback!
+</p>
+</div>
+
+
+</div>
+</div>
+
+</body>
+</html>
