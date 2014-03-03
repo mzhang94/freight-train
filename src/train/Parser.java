@@ -23,33 +23,6 @@ public class Parser {
         return reports;
     }   
     
-//    public static Double[] getTime(JSONArray reports){
-//        Double[] time = new Double[reports.size()];
-//        for(int i=0; i<reports.size(); i++){
-//            JSONObject obj = (JSONObject) reports.get(i);
-//            time[i] = Double.parseDouble((String)obj.get("timestamp"));
-//        }
-//        return time;
-//    }
-//    
-//    public static Double[] getX(JSONArray reports){
-//        Double[] x = new Double[reports.size()];
-//        for(int i=0; i<reports.size(); i++){
-//            JSONObject obj = (JSONObject) reports.get(i);
-//            x[i] = Double.parseDouble((String)obj.get("x"));
-//        }
-//        return x;
-//    }
-//   
-//    public static Double[] getY(JSONArray reports){
-//        Double[] y = new Double[reports.size()];
-//        for(int i=0; i<reports.size(); i++){
-//            JSONObject obj = (JSONObject) reports.get(i);
-//            y[i] = Double.parseDouble((String)obj.get("y"));
-//        }
-//        return y;
-//    }
-      
     public static Double[][] getData(JSONArray reports){
         JSONObject[] jsonArray = new JSONObject[reports.size()];
         for(int i=0; i<reports.size(); i++){
@@ -71,16 +44,6 @@ public class Parser {
         JSONArray reports = parse(filename);
         return getData(reports);
     }
-    public static Double[][] getVelocity(Double[][]data){
-        Double[][] velocity = new Double[3][data[0].length-1];
-        for(int i=0; i< data[0].length-1; i++){
-            velocity[0][i] = data[0][i];
-            velocity[1][i] = (data[1][i+1] - data[1][i])/(data[0][i+1] - data[0][i]);
-            velocity[2][i] = (data[2][i+1] - data[2][i])/(data[0][i+1] - data[0][i]);
-        }
-        return velocity;
-    }
-    
    
 }
 

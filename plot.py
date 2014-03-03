@@ -36,14 +36,14 @@ plt.plot(time1, y1, 'y.')
 xv = []
 yv = []
 
-for line in fv:
-    split = line.split()
-    time.append(float(split[0]))
-    
-    xv.append(float(split[1]))
-    yv.append(float(split[2]))
-    
-plt.plot(time1, xv)
-plt.plot(time1, yv)
+#for line in fv:
+#    split = line.split()
+#    time.append(float(split[0]))
+#    
+#    xv.append(float(split[1]))
+#    yv.append(float(split[2]))
+#    
+#plt.plot(time1, xv)
+#plt.plot(time1, yv)
 
 plt.show()
