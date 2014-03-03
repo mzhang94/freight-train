@@ -81,30 +81,7 @@ public class Parser {
         return velocity;
     }
     
-    public static Double[][] smoothedData(Double[][] data, double a, double b){
-        Double[][] smoothedValue = new Double[3][data[0].length];
-        
-        
-        smoothedValue[0][0] = data[0][0];
-        smoothedValue[1][0] = data[1][0];
-        smoothedValue[2][0] = data[2][0];
-        smoothedValue[0][1] = data[0][1];
-        smoothedValue[1][1] = data[1][1];
-        smoothedValue[2][1] = data[2][1];
-        
-        double xTrendEstimate = data[1][1] - data[1][0];
-        double yTrendEstimate = data[1][1] - data[1][0];
-        
-        for(int i=2; i< data[0].length; i++){
-            smoothedValue[0][i] = data[0][i];
-            smoothedValue[1][i] = a*data[1][i] + (1-a)*(data[1][i-1] + xTrendEstimate);
-            smoothedValue[2][i] = a*data[2][i] + (1-a)*(data[2][i-1] + yTrendEstimate);
-            xTrendEstimate = b*(smoothedValue[1][i] - smoothedValue[1][i-1]) + (1-b)*xTrendEstimate;
-            yTrendEstimate = b*(smoothedValue[2][i] - smoothedValue[2][i-1]) + (1-b)*yTrendEstimate;
-        }
-        
-        return smoothedValue;
-    }
+   
 }
 
 class TimeComparator implements Comparator<JSONObject>{

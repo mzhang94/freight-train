@@ -6,24 +6,32 @@ import java.io.PrintWriter;
 
 import org.json.simple.parser.ParseException;
 
+import filter.Smoother;
+
 public class Main {
     public static void main(String[] args){
         try {
-            Double[][] data = Parser.getData("freight-train/reports.txt");
-            Double[][] velocity = Parser.getVelocity(data);
-            Double[][] sData = Parser.smoothedData(data, 0.5,0.5);
+            Double[][] data = Parser.getData("freight-train/hard-reports-2.txt");
+            Double[][] xEstimate = Smoother.expoSmooth2(data[1], data[0], 0.1,0.5);
+            Double[][] yEstimate = Smoother.expoSmooth2(data[2], data[0], 0.1,0.5);
             
-            PrintWriter dataWriter = new PrintWriter("report-data.txt", "UTF-8");           
+            PrintWriter dataWriter = new PrintWriter("hard-report-2-data.txt", "UTF-8");           
             for(int i=0;i<data[0].length; i++){
                 dataWriter.println(String.format("%f %f %f", data[0][i], data[1][i], data[2][i]));
-            }
+            }         
             dataWriter.close();
             
-            PrintWriter sDataWriter = new PrintWriter("report-sData.txt", "UTF-8");
-            for(int i=0;i<velocity[0].length; i++){
-                sDataWriter.println(String.format("%f %f %f", sData[0][i], sData[1][i], sData[2][i]));
+            PrintWriter sDataWriter = new PrintWriter("hard-report-2-sdata.txt", "UTF-8");           
+            for(int i=0;i<xEstimate[0].length; i++){
+                sDataWriter.println(String.format("%f %f %f", data[0][i], xEstimate[0][i], yEstimate[0][i]));
             }
             sDataWriter.close();
+            
+            PrintWriter sVelWriter = new PrintWriter("hard-report-2-sVel.txt", "UTF-8");
+            for(int i=0;i<xEstimate[0].length; i++){
+                sVelWriter.println(String.format("%f %f %f", data[0][i], xEstimate[1][i], yEstimate[1][i]));
+            }
+            sVelWriter.close();
             
            
         } catch (FileNotFoundException e) {
