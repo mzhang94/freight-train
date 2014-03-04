@@ -23,11 +23,11 @@ public class KalmanFilter {
     private Matrix input;
     private int d; //dimention of state
     
-    private ArrayList<Matrix> prioriState = new ArrayList<Matrix>();
-    private ArrayList<Matrix> prioriErr = new ArrayList<Matrix>();
-    
-    private ArrayList<Matrix> postState = new ArrayList<Matrix>();
-    private ArrayList<Matrix> postErr = new ArrayList<Matrix>();
+//    private ArrayList<Matrix> prioriState = new ArrayList<Matrix>();
+//    private ArrayList<Matrix> prioriErr = new ArrayList<Matrix>();
+//    
+//    private ArrayList<Matrix> postState = new ArrayList<Matrix>();
+//    private ArrayList<Matrix> postErr = new ArrayList<Matrix>();
     
     /**
      * Initialize
@@ -56,8 +56,10 @@ public class KalmanFilter {
         this.errCo = initErrCoviriance;
         this.input = new Matrix(d, 1);
         
-        prioriState.add(initState);
-        prioriErr.add(initErrCoviriance);
+        coRes = obsNoise;
+        
+//        prioriState.add(initState);
+//        prioriErr.add(initErrCoviriance);
     }
     
     /**
@@ -83,25 +85,16 @@ public class KalmanFilter {
         state = state.plus(kalmanGain.times(mRes));
         errCo = Matrix.identity(d, d).minus(kalmanGain.times(obsMat)).times(errCo);
         
-        postState.add(state);
-        postErr.add(errCo);
+//        postState.add(state);
+//        postErr.add(errCo);
     }
     
     /**
-     * Reset state, priorState, priorErr, postErr, postState to the point before inputing the ith observation.
-     * That is to say, discard anything after the ith observation including ith observation
-     * Will not reset othre fields because they can be calculated from state and errCo
-     * @param i observation after which all inputs should be discarded
+     *
      */
-    public void reset(int i){
-        Common.removeAllAfter(postState, i);
-        Common.removeAllAfter(postErr, i);
-        
-        Common.removeAllAfter(prioriState, i+1);
-        Common.removeAllAfter(prioriErr, i+1);
-        
-        state = postState.get(postState.size()-1);
-        errCo = postState.get(postErr.size()-1);       
+    public void reset(Matrix resetState, Matrix resetErr){      
+        state = resetState;
+        errCo = resetErr;       
     }
     
     //getters and setters
@@ -117,12 +110,24 @@ public class KalmanFilter {
         return errCo.copy();
     }
     
-    public ArrayList<Matrix> getPrioriState(){
-        return Common.copyArrayMatrix(prioriState);
-    }
+//    public ArrayList<Matrix> getPrioriState(){
+//        return Common.copyArrayMatrix(prioriState);
+//    }
+//    
+//    public ArrayList<Matrix> getPostState(){
+//        return Common.copyArrayMatrix(postState);
+//    }
+//    
+//    public ArrayList<Matrix> getPrioriErr(){
+//        return Common.copyArrayMatrix(prioriErr);
+//    }
     
-    public ArrayList<Matrix> getPriori(){
-        return Common.copyArrayMatrix(prioriState);
+//    public ArrayList<Matrix> getPostErr(){
+//        return Common.copyArrayMatrix(postErr);
+//    }
+    
+    public Matrix getCoRes(){
+        return coRes.copy();
     }
     
     public void setTran(Matrix tran){

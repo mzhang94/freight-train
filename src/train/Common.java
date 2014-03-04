@@ -17,7 +17,7 @@ public class Common {
     
     //helper function to remove all elements after index, including index
     public static void removeAllAfter(ArrayList<Matrix> array, int index){
-        for(int i = array.size() - 1; i >= index; i++){
+        for(int i = array.size() - 1; i >= index; i--){
             array.remove(index);
         }
     }

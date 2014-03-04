@@ -3,11 +3,11 @@ package train;
 import java.util.ArrayList;
 
 public class Model {
-    protected ArrayList<Data> rawData;
-    protected ArrayList<Data> estimate;
-    protected ArrayList<Data> estimateVel;
+    private ArrayList<Data> rawData;
+    private ArrayList<Data> estimate;
+    private ArrayList<Data> estimateVel;
     
-    protected double speed;
+    private double speed;
       
     public Model(){
         rawData = new ArrayList<Data>();          
@@ -27,12 +27,22 @@ public class Model {
         return speed;
     }
     
-    public void addRawData(Data d){
-        rawData.add(d.clone());
+    public void addRawData(ArrayList<Data> dataList){
+        for(Data d: dataList){
+            rawData.add(d.clone());
+        }
     }
     
-    public void addEstimate(Data d){
-        estimate.add(d.clone());
+    public void addEstimate(ArrayList<Data> dataList){
+        for(Data d: dataList){
+            estimate.add(d.clone());
+        }
+    }
+    
+    public void addVelEstimate(ArrayList<Data> dataList){
+        for(Data d: dataList){
+            estimateVel.add(d.clone());
+        }
     }
     
     public void addEstimateVel(Data vel){
