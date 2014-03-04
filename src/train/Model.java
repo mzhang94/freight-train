@@ -3,29 +3,17 @@ package train;
 import java.util.ArrayList;
 
 public class Model {
-    private ArrayList<Data> rawData;
-    private ArrayList<Data> estimate;
-    private ArrayList<Data> estimateVel;
+    protected ArrayList<Data> rawData;
+    protected ArrayList<Data> estimate;
+    protected ArrayList<Data> estimateVel;
     
-    private double speed;
       
     public Model(){
         rawData = new ArrayList<Data>();          
         estimate = new ArrayList<Data>();    
         estimateVel = new ArrayList<Data>();
     }
-    
-    public double query(double time){
-        return time;       
-    }
-    
-    public ArrayList<Data> playBack(){
-        return Common.copyArrayList(estimate);
-    }
-    
-    public double getSpeed(){
-        return speed;
-    }
+       
     
     public void addRawData(ArrayList<Data> dataList){
         for(Data d: dataList){
@@ -45,13 +33,19 @@ public class Model {
         }
     }
     
+    public void addEstimate(Data d){
+        estimate.add(d);
+    }
+    
+    public void addRawData(Data d){
+        rawData.add(d);
+    }
+    
     public void addEstimateVel(Data vel){
         estimateVel.add(vel);
     }
-    public void setSpeed(double s){
-        speed = s;
-    }
-     
+    
+   
     public String estimateToString(){
         StringBuilder s = new StringBuilder();
         for(Data d: estimate){

@@ -6,22 +6,22 @@ import Jama.Matrix;
 import filter.KalmanFilter;
 
 public class Computation {
-    Model model;
-    KalmanFilter filterX;
+    private Model model;
+    private KalmanFilter filterX;
     private KalmanFilter filterY;
-    int falseCount = 0; //record the number of invalid data that has been received after start
-    int count = 0;      //number of data received after start
+    private int falseCount = 0; //record the number of invalid data that has been received after start
+    private int count = 0;      //number of data received after start
     
-    ArrayList<Data> rawDataCache = new ArrayList<Data>();
-    ArrayList<Data> estimateCache = new ArrayList<Data>();
-    ArrayList<Data> velEstimateCache = new ArrayList<Data>();
+    private ArrayList<Data> rawDataCache = new ArrayList<Data>();
+    private ArrayList<Data> estimateCache = new ArrayList<Data>();
+    private ArrayList<Data> velEstimateCache = new ArrayList<Data>();
     private Matrix resetStateX;
     private Matrix resetErrX;
     private Matrix resetStateY;
     private Matrix resetErrY;
     
-    public Computation(){
-        model = new Model();
+    public Computation(Model model){
+        this.model = model;
         filterX = new KalmanFilter(
                 new Matrix(new double[][]{new double[]{1, 0}, new double[]{0, 1}}), //transition
                 new Matrix(2,2), //control
@@ -62,8 +62,7 @@ public class Computation {
                     new double[]{resetErrX.get(0,0),0},
                     new double[]{0, 100},
             }));
-            
-           
+                       
             filterY.reset(resetStateY, new Matrix(new double[][]{
                     new double[]{resetErrY.get(0,0),0},
                     new double[]{0, 100},

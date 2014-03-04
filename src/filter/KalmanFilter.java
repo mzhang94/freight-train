@@ -68,6 +68,8 @@ public class KalmanFilter {
      * @return predict state
      */
     public Matrix predict(Matrix input){
+//        System.out.println(input.getRowDimension() + " " + input.getColumnDimension());
+//        System.out.println(control.getRowDimension() + " " + control.getColumnDimension());
         this.input = input;       
         state = tran.times(state).plus(control.times(input));
         errCo = tran.times(errCo).times(tranT).plus(procNoise); 
@@ -139,9 +141,8 @@ public class KalmanFilter {
         this.control = control.copy();
     }
     
-    public void setNoise(Matrix procNoise, Matrix obsNoise){
-        this.procNoise = procNoise.copy();       
-        this.obsNoise = obsNoise.copy();
+    public void setProcNoise(Matrix procNoise){
+        this.procNoise = procNoise.copy();             
     }
     
     

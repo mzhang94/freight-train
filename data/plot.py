@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-f = open("hard-report-1-data.txt",'r')
-f1 = open('hard-report-1-sData.txt','r')
-fv = open('hard-report-1-sVel.txt', 'r')
+filename = "hard-reports-2"
+f = open(filename + "-data.txt",'r')
+f1 = open(filename + '-sData.txt','r')
+fv = open(filename + '-sVel.txt', 'r')
 
 x = []
 y = []
@@ -45,16 +46,17 @@ plt.plot(time1, y1, 'g-')
 
 xv = []
 yv = []
+timev = []
 
 for line in fv:
     split = line.split()
-    time.append(float(split[0]))
+    timev.append(float(split[0]))
     
     xv.append(float(split[1]))
     yv.append(float(split[2]))
 
 fv.close()
-plt.plot(time1, xv)
-plt.plot(time1, yv)
+plt.plot(timev, xv)
+plt.plot(timev, yv)
 
 plt.show()
