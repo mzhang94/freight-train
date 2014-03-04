@@ -3,13 +3,12 @@ package train;
 import java.util.ArrayList;
 
 public class Model {
-    ArrayList<Data> rawData;
-    ArrayList<Data> estimate;
-    ArrayList<Data> estimateVel;
+    protected ArrayList<Data> rawData;
+    protected ArrayList<Data> estimate;
+    protected ArrayList<Data> estimateVel;
     
-    private double speed;
-   
-    
+    protected double speed;
+      
     public Model(){
         rawData = new ArrayList<Data>();          
         estimate = new ArrayList<Data>();    
@@ -21,7 +20,7 @@ public class Model {
     }
     
     public ArrayList<Data> playBack(){
-        return copyArrayList(estimate);
+        return Common.copyArrayList(estimate);
     }
     
     public double getSpeed(){
@@ -52,6 +51,15 @@ public class Model {
         return s.toString();
     }
     
+    public String estimateVelToString(){
+        StringBuilder s = new StringBuilder();
+        for(Data d: estimateVel){
+            s.append(d);
+            s.append("\n");
+        }
+        return s.toString();
+    }
+    
     public String rawDataToString(){
         StringBuilder s = new StringBuilder();
         for(Data d: rawData){
@@ -60,14 +68,5 @@ public class Model {
         }
         return s.toString();
     }
-    
-    private ArrayList<Data> copyArrayList(ArrayList<Data> a){
-        ArrayList<Data> b = new ArrayList<Data>();
-        for(Data data : a){
-            b.add(data.clone());
-        }
-        return b;
-    }
-            
-            
+               
 }
