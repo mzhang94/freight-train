@@ -24,7 +24,7 @@ public class Common {
     public static ArrayList<Data> copyArrayList(ArrayList<Data> a){
         ArrayList<Data> b = new ArrayList<Data>();
         for(Data data : a){
-            b.add(data.clone());
+            b.add(data);
         }
         return b;
     }

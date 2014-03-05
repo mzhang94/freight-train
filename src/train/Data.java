@@ -13,10 +13,6 @@ public class Data {
         this.valid = valid;
     }
     
-    public Data clone(){
-        return new Data(x, y, time, valid);
-    }
-    
     public String toString(){
         return String.format("%s %s %s %b", time, x, y, valid);
     }

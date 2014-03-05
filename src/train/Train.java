@@ -28,48 +28,25 @@ public class Train {
     
     /* Interface methods */
     public double[] query(double time){
-         int i = binarySearch(model.rawData, time);
+         int i = model.binarySearch(time);
          
-         Data state = model.estimate.get(i);
-         Data vel = model.estimateVel.get(i);
+         Data state = model.getEstimate(i);
+         Data vel = model.getVelEstimate(i);
          double x = state.x + vel.x*(time-state.time);
          double y = state.y + vel.y*(time-state.time);
          return new double[]{x,y};
     }
 
     public ArrayList<Data> playBack(){
-        return Common.copyArrayList(model.estimate);
+        return model.getEstimate();
     }
     
     public double getSpeed(){
-        Data velocity = model.estimateVel.get(model.estimateVel.size()-1);
+        Data velocity = model.getVelEstimate(model.getDataNum()-1);
         return Math.sqrt(velocity.x*velocity.x + velocity.y*velocity.y);
     }
     
-    /* helper methds */
-    public static int binarySearch(ArrayList<Data> d, double time){
-        return binarySearch(d, time, 0, d.size()-1);
-    }
-    
-    public static int binarySearch(ArrayList<Data> d, double time, int start, int end){
-       if(d.get(start).time >time){
-           return start -1;
-       }
-       if(d.get(end).time <= time){
-           return end;
-       }
-       int mid = (start + end)/2;
-       if(d.get(mid).time == time){
-           return mid;
-       }
-       else if(d.get(mid).time > time){
-           return binarySearch(d, time, start, mid);
-       }
-       else{
-           return binarySearch(d, time, mid+1, end);
-       }        
-    }
-    
+   
     /* output methods for visualization in python */
     public void writeToFile() throws FileNotFoundException, UnsupportedEncodingException{
       //output estimate
@@ -95,11 +72,11 @@ public class Train {
      */
     public double getErr(){
         double var = 0;
-        for(int i=0; i < model.estimate.size();i++){
-            var += Math.pow(model.estimate.get(i).x - model.rawData.get(i).x, 2);
-            var += Math.pow(model.estimate.get(i).y - model.rawData.get(i).y, 2);
+        for(int i=0; i < model.getDataNum();i++){
+            var += Math.pow(model.getEstimate(i).x - model.getRawData(i).x, 2);
+            var += Math.pow(model.getEstimate(i).y - model.getRawData(i).y, 2);
         }
-        return var/model.estimate.size();
+        return var/model.getDataNum();
     }
     
     /**
@@ -109,15 +86,16 @@ public class Train {
     public double getSpeedVar(){
         double var = 0;
         double sum = 0;
-        double[] vel = new double[model.estimateVel.size()];
-        for(int i=0; i < model.estimateVel.size();i++){
-            vel[i] = Math.sqrt(Math.pow(model.estimateVel.get(i).x, 2) + Math.pow(model.estimateVel.get(i).y, 2));
+        int n = model.getDataNum();
+        double[] vel = new double[n];
+        for(int i=0; i < n;i++){
+            vel[i] = Math.sqrt(Math.pow(model.getVelEstimate(i).x, 2) + Math.pow(model.getVelEstimate(i).y, 2));
             sum += vel[i];
         }
-        double mean = sum/model.estimateVel.size();
-        for(int i=0; i < model.estimateVel.size();i++){
+        double mean = sum/n;
+        for(int i=0; i < n;i++){
             var += Math.pow(vel[i]-mean, 2);
         }
-        return var/model.estimateVel.size();
+        return var/n;
     }
 }
