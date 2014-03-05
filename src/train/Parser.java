@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Parser {
+    //parse data from input file into two dimensional arrays for later use
     public static JSONArray parse(String filename) throws FileNotFoundException, IOException, org.json.simple.parser.ParseException{
         JSONParser parser = new JSONParser();
         Object obj;           
