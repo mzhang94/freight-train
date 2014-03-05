@@ -10,9 +10,8 @@ import filter.Smoother;
 
 public class Main {
     public static void main(String[] args){
-        try {
-            
-            Train train = new Train("data/hard-reports-1.txt");
+        try {            
+            Train train = new Train("data/reports.txt");
             train.writeToFile();
             
         } catch (FileNotFoundException e) {

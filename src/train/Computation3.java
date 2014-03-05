@@ -4,7 +4,7 @@ import Jama.Matrix;
 import filter.KalmanFilter;
 
 //uses nonlinear Kalman Filter to take changes of direction into account
-public class Computation3 {
+public class Computation3 implements Computation{
     private Model model;
     private KalmanFilter filter;
     private int count = 0;

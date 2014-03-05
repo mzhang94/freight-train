@@ -4,7 +4,7 @@ import Jama.Matrix;
 import filter.KalmanFilter;
 
 //uses nonlinear Kalman Filter to take changes of direction into account
-public class Computation4 {
+public class Computation4 implements Computation{
     private Model model;
     private KalmanFilter filter;
     private int count = 0;
@@ -45,12 +45,12 @@ public class Computation4 {
                 );
     }
                       
-     
-    public void addData(Data data){
-        
+    
+    public void addData(Data data){      
         Matrix state = filter.getState();      
         Matrix coRes = filter.getCoRes();
         
+        //filter out invalid data which deviates too far from expectation
         if(count >= 1 && (Math.pow(state.get(0,0)-data.x,2) > 10*coRes.get(0,0) || 
                         Math.pow(state.get(1,0)-data.y,2) > 10*coRes.get(1,1))){           
             model.addEstimate(new Data(state.get(0,0), state.get(1,0), data.time, false));
@@ -109,13 +109,13 @@ public class Computation4 {
             filter.setProcNoise(procNoise);
         }
         
-        System.out.println(String.format("%f %f, %f, %f, %f", a, v, theta, cos, sin));
-        //update estimation and a
+//        System.out.println(String.format("%f %f, %f, %f, %f", a, v, theta, cos, sin));
+        //update estimation
         state = filter.getState();
         
         model.addEstimate(new Data(state.get(0,0), state.get(1,0), data.time, true));
         model.addEstimateVel(new Data(v*cos, v*sin, data.time, true));
-        a = state.get(4,0);
+        
                 
         //predict
         Matrix control = new Matrix(dim, 2);
